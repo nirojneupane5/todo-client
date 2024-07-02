@@ -1,11 +1,12 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import CustomLink from "./CustomLink";
 const Navbar = () => {
   return (
     <>
-      <header className="flex items-center px-2 py-4 bg-black text-white">
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/about">About</NavLink>
+      <header className="flex justify-center items-center px-2 py-4 bg-black text-white ">
+        <nav className="flex justify-center items-center gap-5">
+          <CustomLink title="home" path="/" />
+          <CustomLink title="about" path="/about" />
         </nav>
       </header>
       <main>
