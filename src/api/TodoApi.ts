@@ -22,3 +22,9 @@ export const displayTodo=async()=>{
     const response=await axios.get("http://127.0.0.1:8000/todo/");
     return response.data;
 }
+
+//Route 3: Delete todo
+export const deleteTodo=async(id:number)=>{
+    const response=await axios.delete(`http://127.0.0.1:8000/todo/${id}`);
+    return response.data;
+}
