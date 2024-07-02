@@ -6,10 +6,10 @@ type TodoForm={
 
 export type TodoResponse={
     id:number;
-    test_name:string;
+    task_name:string;
     desc:string;
     status:boolean
-}[]
+}
 
 //Route 1: Add todo
 export const addTodo=async(data:TodoForm)=>{
@@ -17,7 +17,7 @@ export const addTodo=async(data:TodoForm)=>{
     return response.data
 }
 
-//Route 2: Dsiplay todo
+//Route 2: Display todo
 export const displayTodo=async()=>{
     const response=await axios.get("http://127.0.0.1:8000/todo/");
     return response.data;
