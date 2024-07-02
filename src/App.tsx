@@ -1,13 +1,25 @@
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 import "./App.css";
-import { Button } from "./components/ui/button";
+import Navbar from "./components/navbar/Navbar";
+import Home from "./page/home/Home";
+import About from "./page/about/About";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Navbar />}>
+      <Route index element={<Home />} />
+      <Route path="/about" element={<About />} />
+    </Route>
+  )
+);
 
 function App() {
-  return (
-    <>
-      <h1 className="text-red-500">Hello world</h1>
-      <Button>Click me</Button>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
