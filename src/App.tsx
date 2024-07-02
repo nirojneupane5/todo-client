@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import {
   Route,
   RouterProvider,
@@ -5,15 +6,37 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/navbar/Navbar";
-import Home from "./page/home/Home";
-import About from "./page/about/About";
+const Navbar = lazy(() => import("./components/navbar/Navbar"));
+const Home = lazy(() => import("./page/home/Home"));
+const About = lazy(() => import("./page/about/About"));
 
+const Loading = () => <div>Loading...</div>;
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Navbar />}>
-      <Route index element={<Home />} />
-      <Route path="/about" element={<About />} />
+    <Route
+      path="/"
+      element={
+        <Suspense fallback={<Loading />}>
+          <Navbar />
+        </Suspense>
+      }
+    >
+      <Route
+        index
+        element={
+          <Suspense fallback={<Loading />}>
+            <Home />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <Suspense fallback={<Loading />}>
+            <About />
+          </Suspense>
+        }
+      />
     </Route>
   )
 );
