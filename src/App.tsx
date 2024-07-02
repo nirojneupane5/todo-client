@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import {
   Route,
   RouterProvider,
@@ -41,8 +42,15 @@ const router = createBrowserRouter(
   )
 );
 
+//Create a query client
+const queryClient = new QueryClient();
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }
 
 export default App;
