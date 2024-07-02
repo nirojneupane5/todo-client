@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useMutation, useQueryClient } from "react-query";
+import { addTodo } from "@/api/TodoApi";
 
 const formSchema = z.object({
   task_name: z.string().min(2, {
@@ -22,6 +24,7 @@ const formSchema = z.object({
   }),
 });
 const AddTodo = () => {
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,8 +33,17 @@ const AddTodo = () => {
     },
   });
 
+  //Add todo
+  const mutation = useMutation(addTodo, {
+    onSuccess: () => {
+      // Invalidate and refetch
+      form.reset();
+      queryClient.invalidateQueries("todos");
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    mutation.mutate(values);
   };
   return (
     <div className="w-[400px]">
