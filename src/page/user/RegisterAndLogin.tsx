@@ -3,7 +3,7 @@ import Register from "./Register";
 import Login from "./Login";
 const RegisterAndLogin = () => {
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <Tabs defaultValue="account" className="w-[400px]">
         <TabsList>
           <TabsTrigger value="register">Register</TabsTrigger>
