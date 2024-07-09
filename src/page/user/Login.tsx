@@ -11,6 +11,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMutation, useQueryClient } from "react-query";
+import { loginUser } from "@/api/UserApi";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -21,6 +23,7 @@ const formSchema = z.object({
   }),
 });
 const Login = () => {
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,8 +32,16 @@ const Login = () => {
     },
   });
 
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: () => {
+      form.reset();
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    mutation.mutate(values);
   };
   return (
     <div>
