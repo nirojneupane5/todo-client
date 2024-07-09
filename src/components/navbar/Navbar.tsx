@@ -7,6 +7,7 @@ const Navbar = () => {
         <nav className="flex justify-center items-center gap-5">
           <CustomLink title="home" path="/" />
           <CustomLink title="about" path="/about" />
+          <CustomLink title="user" path="/user" />
         </nav>
       </header>
       <main>
