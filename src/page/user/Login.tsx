@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "react-query";
 import { loginUser } from "@/api/UserApi";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -31,12 +32,18 @@ const Login = () => {
       password: "",
     },
   });
+  const { toast } = useToast();
 
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: () => {
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["user"] });
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Successfull Login",
+      });
     },
   });
 

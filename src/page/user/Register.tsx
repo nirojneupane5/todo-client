@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "react-query";
 import { registerUser } from "@/api/UserApi";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z
   .object({
@@ -58,11 +59,17 @@ const Register = () => {
       last_name: "",
     },
   });
+  const { toast } = useToast();
   const mutation = useMutation({
     mutationFn: registerUser,
     onSuccess: () => {
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["user"] });
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "SignUp Successful",
+      });
     },
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {

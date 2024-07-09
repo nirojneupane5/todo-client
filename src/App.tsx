@@ -7,6 +7,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import "./App.css";
+import { Toaster } from "@/components/ui/toaster";
 import RegisterAndLogin from "./page/user/RegisterAndLogin";
 const Navbar = lazy(() => import("./components/navbar/Navbar"));
 const Home = lazy(() => import("./page/home/Home"));
@@ -58,6 +59,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Toaster />
     </QueryClientProvider>
   );
 }
