@@ -11,12 +11,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useMutation, useQueryClient } from "react-query";
+import { loginUser } from "@/api/UserApi";
 
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  password: z.string(),
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  password: z.string().min(2, {
+    message: "Please enter the password",
+  }),
 });
 const Login = () => {
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -25,8 +32,16 @@ const Login = () => {
     },
   });
 
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: () => {
+      form.reset();
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    mutation.mutate(values);
   };
   return (
     <div>
@@ -52,7 +67,7 @@ const Login = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="password" {...field} />
+                  <Input placeholder="password" type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
