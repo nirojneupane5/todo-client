@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "react-query";
-import { loginUser } from "@/api/UserApi";
+import { loginUser, TLoginResponse } from "@/api/UserApi";
 import { useToast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContextProvider";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -34,7 +36,8 @@ const Login = () => {
     },
   });
   const { toast } = useToast();
-
+  const navigate = useNavigate();
+  const { login } = useAuth();
   const mutation = useMutation({
     mutationFn: loginUser,
     onError: (error: AxiosError) => {
@@ -47,7 +50,7 @@ const Login = () => {
         description: errorResponse,
       });
     },
-    onSuccess: () => {
+    onSuccess: (data: TLoginResponse) => {
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["user"] });
       toast({
@@ -55,6 +58,8 @@ const Login = () => {
         title: "Success",
         description: "Successfull Login",
       });
+      login(data.access);
+      navigate("/home");
     },
   });
 
