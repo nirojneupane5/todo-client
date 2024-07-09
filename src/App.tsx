@@ -45,14 +45,6 @@ const router = createBrowserRouter(
             </Suspense>
           }
         />
-        <Route
-          path="/user"
-          element={
-            <Suspense fallback={<Loading />}>
-              <RegisterAndLogin />
-            </Suspense>
-          }
-        />
       </Route>
     </>
   )
