@@ -7,6 +7,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import "./App.css";
+import RegisterAndLogin from "./page/user/RegisterAndLogin";
 const Navbar = lazy(() => import("./components/navbar/Navbar"));
 const Home = lazy(() => import("./page/home/Home"));
 const About = lazy(() => import("./page/about/About"));
@@ -35,6 +36,14 @@ const router = createBrowserRouter(
         element={
           <Suspense fallback={<Loading />}>
             <About />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/user"
+        element={
+          <Suspense fallback={<Loading />}>
+            <RegisterAndLogin />
           </Suspense>
         }
       />
