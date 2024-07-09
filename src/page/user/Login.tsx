@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "react-query";
 import { loginUser } from "@/api/UserApi";
 import { useToast } from "@/components/ui/use-toast";
+import { AxiosError } from "axios";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -36,6 +37,16 @@ const Login = () => {
 
   const mutation = useMutation({
     mutationFn: loginUser,
+    onError: (error: AxiosError) => {
+      let errorResponse =
+        JSON.stringify(error.response?.data) ||
+        "An unexpected error has occurred";
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: errorResponse,
+      });
+    },
     onSuccess: () => {
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["user"] });
