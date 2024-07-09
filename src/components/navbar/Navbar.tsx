@@ -5,7 +5,7 @@ const Navbar = () => {
     <>
       <header className="flex justify-center items-center px-2 py-4 bg-black text-white ">
         <nav className="flex justify-center items-center gap-5">
-          <CustomLink title="home" path="/" />
+          <CustomLink title="home" path="/home" />
           <CustomLink title="about" path="/about" />
           <CustomLink title="user" path="/user" />
         </nav>

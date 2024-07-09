@@ -13,6 +13,11 @@ type TUserLogin={
     password:string
 }
 
+export type TLoginResponse={
+  refresh:string;
+  access:string
+}
+
 export const registerUser=async(data:TUserSignUp)=>{
     const response=await axios.post(`http://127.0.0.1:8000/register/`,data)
     return response.data;
