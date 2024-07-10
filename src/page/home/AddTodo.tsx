@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQueryClient } from "react-query";
 import { addTodo } from "@/api/TodoApi";
+import { useAuth } from "@/context/AuthContextProvider";
 
 const formSchema = z.object({
   task_name: z.string().min(2, {
@@ -32,7 +33,12 @@ const AddTodo = () => {
       desc: "",
     },
   });
+  const { userId } = useAuth();
+  let userIds: number | null = null;
 
+  if (userId !== null) {
+    userIds = parseInt(userId, 10);
+  }
   //Add todo
   const mutation = useMutation(addTodo, {
     onSuccess: () => {
@@ -43,7 +49,12 @@ const AddTodo = () => {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    mutation.mutate(values);
+    const newValue = {
+      idOfUser_fk: userIds,
+      task_name: values.task_name,
+      desc: values.desc,
+    };
+    mutation.mutate(newValue);
   };
   return (
     <div className="w-[400px]">

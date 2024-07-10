@@ -1,10 +1,13 @@
 import { TodoResponse, deleteTodo, displayTodo } from "@/api/TodoApi";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useAuth } from "@/context/AuthContextProvider";
 const ViewTodo = () => {
   const queryClient = useQueryClient();
+  const { userId } = useAuth();
+
   const { data: todoData } = useQuery<TodoResponse[]>({
     queryKey: "todos",
-    queryFn: displayTodo,
+    queryFn: () => displayTodo(userId),
   });
 
   const mutation = useMutation(deleteTodo, {
