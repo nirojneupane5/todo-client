@@ -10,6 +10,7 @@ import "./App.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "./context/AuthContextProvider";
 import PrivateRoute from "./components/PtivateRoute";
+import Login from "./page/user/Login";
 
 // const Navbar = lazy(() => import("./components/navbar/Navbar"));
 const Home = lazy(() => import("./page/home/Home"));
@@ -25,6 +26,14 @@ const router = createBrowserRouter(
         element={
           <Suspense fallback={<Loading />}>
             <RegisterAndLogin />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <Suspense fallback={<Loading />}>
+            <Login />
           </Suspense>
         }
       />
