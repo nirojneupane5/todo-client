@@ -13,6 +13,12 @@ export type TodoResponse = {
   status: boolean;
 };
 
+type TodoUpdateData={
+  task_name: string;
+  desc: string;
+  id:number;
+}
+
 // Route 1: Add todo
 export const addTodo = async (data: TodoForm) => {
   const token = localStorage.getItem("access_token");
@@ -39,6 +45,17 @@ export const displayTodo = async (userId:string | null) => {
 export const deleteTodo = async (id: number) => {
   const token = localStorage.getItem("access_token");
   const response = await axios.delete(`http://127.0.0.1:8000/todo/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+
+export const updateTodo = async (data:TodoUpdateData) => {
+  const token = localStorage.getItem("access_token");
+  const response = await axios.put(`http://127.0.0.1:8000/todo/${data.id}/`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
