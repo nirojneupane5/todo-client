@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useMutation, useQueryClient } from "react-query";
 import { registerUser } from "@/api/UserApi";
 import { useToast } from "@/components/ui/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -60,6 +61,7 @@ const Register = () => {
     },
   });
   const { toast } = useToast();
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: registerUser,
     onSuccess: () => {
@@ -70,6 +72,7 @@ const Register = () => {
         title: "Success",
         description: "SignUp Successful",
       });
+      navigate("/login");
     },
   });
   const onSubmit = (values: z.infer<typeof formSchema>) => {

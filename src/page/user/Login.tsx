@@ -67,7 +67,7 @@ const Login = () => {
     mutation.mutate(values);
   };
   return (
-    <div>
+    <div className="max-w-[1100px] mx-auto flex flex-col py-10 items-center justify-center">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -77,7 +77,11 @@ const Login = () => {
               <FormItem>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="username" {...field} />
+                  <Input
+                    placeholder="username"
+                    {...field}
+                    className="w-[500px]"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -90,7 +94,12 @@ const Login = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="password" type="password" {...field} />
+                  <Input
+                    placeholder="password"
+                    type="password"
+                    className="w-[500px]"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
