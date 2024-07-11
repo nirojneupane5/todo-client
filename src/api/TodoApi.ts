@@ -31,9 +31,9 @@ export const addTodo = async (data: TodoForm) => {
 };
 
 // Route 2: Display todo
-export const displayTodo = async (userId:string | null) => {
+export const displayTodo = async (userId:string | null,status:string) => {
   const token = localStorage.getItem("access_token");
-  const response = await axios.get(`http://127.0.0.1:8000/todo/?idOfUser_fk=${userId}`, {
+  const response = await axios.get(`http://127.0.0.1:8000/todo/?idOfUser_fk=${userId}&status=${status}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

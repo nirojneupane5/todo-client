@@ -10,7 +10,7 @@ const ViewTodo = () => {
   const [selectedTodo, setSelectedTodo] = useState<TUpdateTodoProps | null>(
     null
   );
-
+  
   const { data: todoData } = useQuery<TodoResponse[]>({
     queryKey: "todos",
     queryFn: () => displayTodo(userId),
@@ -37,17 +37,22 @@ const ViewTodo = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {todoData &&
           todoData.map((info, index) => (
-            <div key={index} className="bg-red-400 text-white">
-              <h1>{info.task_name}</h1>
-              <p>{info.desc}</p>
+            <div
+              key={index}
+              className="bg-blue-600 text-white px-2 py-2 rounded-xl"
+            >
+              <h1 className="text-2xl font-bold capitalize">
+                {info.task_name}
+              </h1>
+              <p className="text-xl font-semibold">{info.desc}</p>
               <button
                 onClick={() => {
                   handleDelete(info.id);
                 }}
-                className="bg-black text-white"
+                className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-700"
               >
                 Delete
               </button>
@@ -59,7 +64,7 @@ const ViewTodo = () => {
                     desc: info.desc,
                   });
                 }}
-                className="bg-black text-white mx-4"
+                className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-700 mx-4 my-2"
               >
                 Update
               </button>

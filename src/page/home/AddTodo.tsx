@@ -58,6 +58,9 @@ const AddTodo = () => {
   };
   return (
     <div className="w-[400px]">
+      <h1 className="text-2xl font-bold text-black uppercase px-[100px]">
+        Add your Todo
+      </h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
