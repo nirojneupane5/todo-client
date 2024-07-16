@@ -14,10 +14,9 @@ import Login from "./page/user/Login";
 import Loading from "./components/loading/Loading";
 
 // const Navbar = lazy(() => import("./components/navbar/Navbar"));
-const Home = lazy(() => import("./page/todo/Home"));
+const Todo = lazy(() => import("./page/todo/Todo"));
 const About = lazy(() => import("./page/about/About"));
 const RegisterAndLogin = lazy(() => import("./page/user/RegisterAndLogin"));
-
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,10 +39,10 @@ const router = createBrowserRouter(
       />
       <Route element={<PrivateRoute />}>
         <Route
-          path="/home"
+          path="/todo"
           element={
             <Suspense fallback={<Loading />}>
-              <Home />
+              <Todo />
             </Suspense>
           }
         />

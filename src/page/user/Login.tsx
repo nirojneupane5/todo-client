@@ -59,7 +59,7 @@ const Login = () => {
         description: "Successfull Login",
       });
       login(data.access);
-      navigate("/home");
+      navigate("/todo");
     },
   });
 
