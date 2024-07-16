@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -42,6 +43,7 @@ export type TUpdateTodoProps = {
 
 const UpdateTodo = ({ id, task_name, desc }: TUpdateTodoProps) => {
   const queryClient = useQueryClient();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,6 +57,7 @@ const UpdateTodo = ({ id, task_name, desc }: TUpdateTodoProps) => {
       // Invalidate and refetch
       form.reset();
       queryClient.invalidateQueries("todos");
+      setIsDialogOpen(false);
     },
   });
 
@@ -68,9 +71,12 @@ const UpdateTodo = ({ id, task_name, desc }: TUpdateTodoProps) => {
   };
   return (
     <>
-      <Dialog>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
-          <button className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-700 mx-4 my-2">
+          <button
+            className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-700 mx-4 my-2"
+            onClick={() => setIsDialogOpen(true)}
+          >
             Edit
           </button>
         </DialogTrigger>
