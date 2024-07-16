@@ -18,6 +18,13 @@ type TodoUpdateData={
   id:number;
 }
 const apiUrl = import.meta.env.VITE_API_URL;
+
+export const fetchCsrfToken = async () => {
+  const response = await axios.get(`${apiUrl}/csrf/`);
+  axios.defaults.headers.post['X-CSRFToken'] = response.data.csrfToken;
+  axios.defaults.headers.put['X-CSRFToken'] = response.data.csrfToken;
+  axios.defaults.headers.delete['X-CSRFToken'] = response.data.csrfToken;
+};
 // Route 1: Add todo
 export const addTodo = async (data: TodoForm) => {
   const token = localStorage.getItem("access_token");
@@ -61,3 +68,5 @@ export const updateTodo = async (data:TodoUpdateData) => {
   });
   return response.data;
 };
+
+fetchCsrfToken();
