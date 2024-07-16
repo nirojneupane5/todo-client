@@ -11,13 +11,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "./context/AuthContextProvider";
 import PrivateRoute from "./components/PtivateRoute";
 import Login from "./page/user/Login";
+import Loading from "./components/loading/Loading";
 
 // const Navbar = lazy(() => import("./components/navbar/Navbar"));
 const Home = lazy(() => import("./page/home/Home"));
 const About = lazy(() => import("./page/about/About"));
 const RegisterAndLogin = lazy(() => import("./page/user/RegisterAndLogin"));
 
-const Loading = () => <div>Loading...</div>;
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
