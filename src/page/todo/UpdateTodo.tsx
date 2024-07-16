@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 
 import { useMutation, useQueryClient } from "react-query";
 import { updateTodo } from "@/api/TodoApi";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   task_name: z.string().min(2, {
@@ -51,13 +52,24 @@ const UpdateTodo = ({ id, task_name, desc }: TUpdateTodoProps) => {
       desc: desc,
     },
   });
-
+  const { toast } = useToast();
   const mutation = useMutation(updateTodo, {
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Error While updating Todo",
+      });
+    },
     onSuccess: () => {
       // Invalidate and refetch
       form.reset();
       queryClient.invalidateQueries("todos");
       setIsDialogOpen(false);
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Todo updated Successful",
+      });
     },
   });
 
