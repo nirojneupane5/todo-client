@@ -17,13 +17,13 @@ export type TLoginResponse={
   refresh:string;
   access:string
 }
-
+const apiUrl = import.meta.env.VITE_API_URL;
 export const registerUser=async(data:TUserSignUp)=>{
-    const response=await axios.post(`http://127.0.0.1:8000/register/`,data)
+    const response=await axios.post(`${apiUrl}/register/`,data)
     return response.data;
 } 
 
 export const loginUser=async(data:TUserLogin)=>{
-    const response=await axios.post(`http://127.0.0.1:8000/login/`,data)
+    const response=await axios.post(`${apiUrl}/login/`,data)
     return response.data;
 }
