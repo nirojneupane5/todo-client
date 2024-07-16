@@ -38,17 +38,9 @@ export type TUpdateTodoProps = {
   id: number;
   task_name: string;
   desc: string;
-  isOpen?: boolean;
-  onClose?: () => void;
 };
 
-const UpdateTodo = ({
-  id,
-  task_name,
-  desc,
-  isOpen,
-  onClose,
-}: TUpdateTodoProps) => {
+const UpdateTodo = ({ id, task_name, desc }: TUpdateTodoProps) => {
   const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,9 +55,6 @@ const UpdateTodo = ({
       // Invalidate and refetch
       form.reset();
       queryClient.invalidateQueries("todos");
-      if (onClose) {
-        onClose();
-      }
     },
   });
 
@@ -78,52 +67,56 @@ const UpdateTodo = ({
     mutation.mutate(newValues);
   };
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger asChild>
-        <button>Open</button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Update your Todo</DialogTitle>
-          <DialogDescription>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
-              >
-                <FormField
-                  control={form.control}
-                  name="task_name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Task Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Task name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="desc"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Description" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit">Submit</Button>
-              </form>
-            </Form>
-          </DialogDescription>
-        </DialogHeader>
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog>
+        <DialogTrigger asChild>
+          <button className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-700 mx-4 my-2">
+            Edit
+          </button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Update your Todo</DialogTitle>
+            <DialogDescription>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
+                  <FormField
+                    control={form.control}
+                    name="task_name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Task Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Task name" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="desc"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Description</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Description" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit">Submit</Button>
+                </form>
+              </Form>
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 
