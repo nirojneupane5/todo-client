@@ -1,7 +1,6 @@
 import { useState } from "react";
 import UpdateTodo, { TUpdateTodoProps } from "./UpdateTodo";
-import { useMutation, useQueryClient } from "react-query";
-import { deleteTodo } from "@/api/TodoApi";
+import DeleteTodo from "./DeleteTodo";
 
 type TViewSingleTodoProps = {
   id: number;
@@ -10,21 +9,9 @@ type TViewSingleTodoProps = {
 };
 
 const ViewSingleTodo = ({ id, task_name, desc }: TViewSingleTodoProps) => {
-  const queryClient = useQueryClient();
   const [selectedTodo, setSelectedTodo] = useState<TUpdateTodoProps | null>(
     null
   );
-
-  const mutation = useMutation(deleteTodo, {
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries("todos");
-    },
-  });
-  const handleDelete = (id: number) => {
-    mutation.mutate(id);
-  };
-
   const handleUpdate = (todo: TUpdateTodoProps) => {
     setSelectedTodo(todo);
   };
@@ -38,14 +25,7 @@ const ViewSingleTodo = ({ id, task_name, desc }: TViewSingleTodoProps) => {
       <div className="bg-blue-600 text-white px-2 py-2 rounded-xl">
         <h1 className="text-2xl font-bold capitalize">{task_name}</h1>
         <p className="text-xl font-semibold">{desc}</p>
-        <button
-          onClick={() => {
-            handleDelete(id);
-          }}
-          className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-700"
-        >
-          Delete
-        </button>
+        <DeleteTodo id={id} />
         <button
           onClick={() => {
             handleUpdate({

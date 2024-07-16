@@ -14,7 +14,7 @@ import Login from "./page/user/Login";
 import Loading from "./components/loading/Loading";
 
 // const Navbar = lazy(() => import("./components/navbar/Navbar"));
-const Home = lazy(() => import("./page/home/Home"));
+const Home = lazy(() => import("./page/todo/Home"));
 const About = lazy(() => import("./page/about/About"));
 const RegisterAndLogin = lazy(() => import("./page/user/RegisterAndLogin"));
 
