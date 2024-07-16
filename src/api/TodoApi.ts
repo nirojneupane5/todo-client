@@ -17,11 +17,11 @@ type TodoUpdateData={
   desc: string;
   id:number;
 }
-
+const apiUrl = import.meta.env.VITE_API_URL;
 // Route 1: Add todo
 export const addTodo = async (data: TodoForm) => {
   const token = localStorage.getItem("access_token");
-  const response = await axios.post("http://127.0.0.1:8000/todo/", data, {
+  const response = await axios.post(`${apiUrl}/todo/`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -32,7 +32,7 @@ export const addTodo = async (data: TodoForm) => {
 // Route 2: Display todo
 export const displayTodo = async (userId:string | null,) => {
   const token = localStorage.getItem("access_token");
-  const response = await axios.get(`http://127.0.0.1:8000/todo/?idOfUser_fk=${userId}`, {
+  const response = await axios.get(`${apiUrl}/todo/?idOfUser_fk=${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -43,7 +43,7 @@ export const displayTodo = async (userId:string | null,) => {
 // Route 3: Delete todo
 export const deleteTodo = async (id: number) => {
   const token = localStorage.getItem("access_token");
-  const response = await axios.delete(`http://127.0.0.1:8000/todo/${id}`, {
+  const response = await axios.delete(`${apiUrl}/todo/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -54,7 +54,7 @@ export const deleteTodo = async (id: number) => {
 
 export const updateTodo = async (data:TodoUpdateData) => {
   const token = localStorage.getItem("access_token");
-  const response = await axios.put(`http://127.0.0.1:8000/todo/${data.id}/`, data, {
+  const response = await axios.put(`${apiUrl}/todo/${data.id}/`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
