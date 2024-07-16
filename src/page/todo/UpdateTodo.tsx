@@ -74,7 +74,7 @@ const UpdateTodo = ({ id, task_name, desc }: TUpdateTodoProps) => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <button
-            className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-700 mx-4 my-2"
+            className="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-700"
             onClick={() => setIsDialogOpen(true)}
           >
             Edit
