@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQueryClient } from "react-query";
 import { addTodo } from "@/api/TodoApi";
 import { useAuth } from "@/context/AuthContextProvider";
+import Loader from "@/components/loading/Loader";
 
 const formSchema = z.object({
   task_name: z.string().min(2, {
@@ -95,7 +96,15 @@ const AddTodo = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {mutation.isLoading ? (
+              <div className="flex items-center gap-4">
+                <Loader /> Adding
+              </div>
+            ) : (
+              "Add Todo"
+            )}
+          </Button>
         </form>
       </Form>
     </div>

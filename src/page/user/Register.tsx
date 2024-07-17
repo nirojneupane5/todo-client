@@ -15,6 +15,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { registerUser } from "@/api/UserApi";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import Loader from "@/components/loading/Loader";
 
 const formSchema = z
   .object({
@@ -164,7 +165,16 @@ const Register = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {mutation.isLoading ? (
+              <div className="flex items-center gap-5">
+                <Loader />
+                Register
+              </div>
+            ) : (
+              "Register"
+            )}
+          </Button>
         </form>
       </Form>
     </div>

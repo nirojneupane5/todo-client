@@ -17,6 +17,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContextProvider";
+import Loader from "@/components/loading/Loader";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -105,7 +106,15 @@ const Login = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            {mutation.isLoading ? (
+              <div className="flex items-center gap-4">
+                <Loader /> Logging
+              </div>
+            ) : (
+              "Login"
+            )}
+          </Button>
         </form>
       </Form>
     </div>
