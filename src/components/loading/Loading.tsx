@@ -1,4 +1,4 @@
-import loading from "../../../public/loading.gif";
+import loading from "/loading.gif";
 const Loading = () => {
   return (
     <div className="flex justify-center items-center h-screen">

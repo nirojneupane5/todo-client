@@ -68,53 +68,58 @@ const Login = () => {
     mutation.mutate(values);
   };
   return (
-    <div className="max-w-[1100px] mx-auto flex flex-col py-10 items-center justify-center">
+    <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="username"
-                    {...field}
-                    className="w-[500px]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="password"
-                    type="password"
-                    className="w-[500px]"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">
-            {mutation.isLoading ? (
-              <div className="flex items-center gap-4">
-                <Loader /> Logging
-              </div>
-            ) : (
-              "Login"
-            )}
-          </Button>
+          <div className="flex flex-col items-center justify-center text-white gap-5">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="username"
+                      {...field}
+                      className="w-[400px] text-black"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="password"
+                      type="password"
+                      className="w-[400px] text-black"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              className="my-10 bg-transparent border-2 border-black hover:bg-black duration-200 ease-in-out"
+            >
+              {mutation.isLoading ? (
+                <div className="flex items-center gap-4">
+                  <Loader /> Logging
+                </div>
+              ) : (
+                "Login"
+              )}
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
