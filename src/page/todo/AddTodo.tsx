@@ -59,7 +59,7 @@ const AddTodo = () => {
   };
   return (
     <div className="w-[400px]">
-      <h1 className="text-2xl font-bold text-black uppercase px-[100px]">
+      <h1 className="text-2xl font-bold text-white uppercase px-[100px]">
         Add your Todo
       </h1>
       <Form {...form}>
@@ -69,7 +69,7 @@ const AddTodo = () => {
             name="task_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Task Name</FormLabel>
+                <FormLabel className="text-white">Task Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Task Name" {...field} />
                 </FormControl>
@@ -83,7 +83,7 @@ const AddTodo = () => {
             name="desc"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Task Description</FormLabel>
+                <FormLabel className="text-white">Task Description</FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Write a task description"
