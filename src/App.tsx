@@ -63,6 +63,7 @@ const router = createBrowserRouter(
 const queryClient = new QueryClient();
 
 function App() {
+  //test comment
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
